@@ -1,2 +1,1 @@
-# tfjs-text-multiclass-classification
-文本多标签分类
+- 每次计算出来的结果都是一样的。。。是bug还是？
