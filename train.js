@@ -115,4 +115,4 @@ class Train {
 //run(path.join(__dirname, "model/bert_zh_L-12_H-768_A-12_2"))
 
 
-module.exports = new Train();
+module.exports = Train;
