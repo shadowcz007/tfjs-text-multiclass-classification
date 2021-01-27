@@ -1,28 +1,28 @@
-const knnClassifier=require("@tensorflow-models/knn-classifier");
+const knnClassifier = require("@tensorflow-models/knn-classifier");
 
-class Knn{
-    constructor(){
+class Knn {
+    constructor() {
         this.knn = knnClassifier.create();
-        this.topk=20;
+        this.topk = 20;
     }
 
-    add(tensor,className){
+    add(tensor, className) {
         // console.log('+===',tensor,className)
         this.knn.addExample(tensor, className);
     }
 
-    train(tensors=[],classNames=[]){
+    train(tensors = [], classNames = []) {
         for (let index = 0; index < tensors.length; index++) {
             const t = tensors[index];
-            this.add(t,classNames[index]);
+            this.add(t, classNames[index]);
         }
     }
 
-   async predict(tensor){
+    async predict(tensor) {
         return await this.knn.predictClass(tensor, this.topk);
     }
-    
-    export2str(){
+
+    export2str() {
         let dataset = this.knn.getClassifierDataset();
         var datasetObj = {};
         Object.keys(dataset).forEach((key) => {
@@ -36,8 +36,8 @@ class Knn{
             };
         });
 
-        let jsonModel=JSON.stringify(datasetObj)
-        //localStorage.setItem("easyteach_model",jsonModel);
+        let jsonModel = JSON.stringify(datasetObj)
+            //localStorage.setItem("easyteach_model",jsonModel);
         return jsonModel;
     }
 
