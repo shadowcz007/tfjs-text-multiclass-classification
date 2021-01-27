@@ -101,15 +101,18 @@ async function test() {
     }
 }
 
-async function run(dataset, modelLocalPath, bertModel) {
-    await embedding.init(modelLocalPath, bertModel);
-    return await train(dataset);
+class Train {
+    constructor() {}
+    async start(dataset, modelLocalPath, bertModel) {
+        await embedding.init(modelLocalPath, bertModel);
+        return await train(dataset);
+    }
+    model() {
+        return knn
+    }
 }
 
 //run(path.join(__dirname, "model/bert_zh_L-12_H-768_A-12_2"))
 
 
-module.exports = {
-    start: run,
-    model: knn
-};
+module.exports = new Train();
