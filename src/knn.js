@@ -1,9 +1,28 @@
 const knnClassifier = require("@tensorflow-models/knn-classifier");
+const tf = require('@tensorflow/tfjs-node');
 
 class Knn {
     constructor() {
         this.knn = knnClassifier.create();
         this.topk = 20;
+    }
+
+
+    load(dataset = "") {
+
+        try {
+            var tensorObj = JSON.parse(dataset);
+            Object.keys(tensorObj).forEach((key) => {
+                tensorObj[key] = tf.tensor(tensorObj[key].tensor, tensorObj[key].shape, tensorObj[key].tensor.dtype);
+            });
+            //需要清空knn
+            this.knn.clearAllClasses();
+            this.knn.setClassifierDataset(tensorObj);
+
+            return true
+        } catch (error) {
+            return false
+        }
     }
 
     add(tensor, className) {
