@@ -3,14 +3,16 @@ const { Bert } = require('bert');
 
 class Embedding {
     constructor() {}
-    async init(modelLocalPath) {
+    async init(modelLocalPath, bertModel) {
         // console.log(modelLocalPath)
         if (modelLocalPath) {
             this.bert = new Bert({
                 modelLocalPath: modelLocalPath
             });
             await this.bert.init()
-        };
+        } else {
+            this.bert = bertModel;
+        }
     }
     get(text) {
         //bert的长度是500

@@ -101,8 +101,8 @@ async function test() {
     }
 }
 
-async function run(dataset, modelLocalPath) {
-    await embedding.init(modelLocalPath);
+async function run(dataset, modelLocalPath, bertModel) {
+    await embedding.init(modelLocalPath, bertModel);
     return await train(dataset);
 }
 
