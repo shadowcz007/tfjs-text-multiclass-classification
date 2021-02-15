@@ -7,9 +7,7 @@ class Knn {
         this.topk = 20;
     }
 
-
     load(dataset = "") {
-
         try {
             var tensorObj = JSON.parse(dataset);
             Object.keys(tensorObj).forEach((key) => {
@@ -33,12 +31,14 @@ class Knn {
     train(tensors = [], classNames = []) {
         for (let index = 0; index < tensors.length; index++) {
             const t = tensors[index];
+            if (!(t instanceof tf.Tensor)) t = tf.tensor(t);
             this.add(t, classNames[index]);
         }
     }
 
-    async predict(tensor) {
-        return await this.knn.predictClass(tensor, this.topk);
+    async predict(tensor, topk = null) {
+        if (!(tensor instanceof tf.Tensor)) tensor = tf.tensor(tensor);
+        return await this.knn.predictClass(tensor, topk || this.topk);
     }
 
     export2str() {
